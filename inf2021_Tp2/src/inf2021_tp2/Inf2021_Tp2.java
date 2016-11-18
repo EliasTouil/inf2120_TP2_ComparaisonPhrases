@@ -1,5 +1,8 @@
 package inf2021_tp2;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -9,18 +12,52 @@ import java.util.List;
 public class Inf2021_Tp2 {
 
     public static void main(String[] args) {
-        Phrase maPhrase = new Phrase("Salut   je suis bill et j'aime les plantes mauves.");
-        Phrase maPhrase2 = new Phrase("Salut je mange    des plantes mauves.");
-        System.out.println(maPhrase.arrayMots);
-        System.out.println(maPhrase2.arrayMots); 
+        
+        InputStreamReader isr = new InputStreamReader( System.in );
+        BufferedReader br = new BufferedReader( isr );
+        String phrase1 = null ;
+        String phrase2 = null ;
+        int distance = 0 ;
+        
+        
+        try {
+            phrase1 = br.readLine();
+        } catch( IOException e ) {
+            
+        }
+        
+        
+        try {
+            phrase2 = br.readLine();
+        } catch( IOException e ) {
+            
+        }
+        
+        try {
+            String temp = br.readLine();
+            distance = Integer.parseInt( temp );
+        } catch( IOException e ) {
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        Phrase p1 = new Phrase(phrase1);
+        Phrase p2 = new Phrase(phrase2);
+        System.out.println(p1.arrayMots);
+        System.out.println(p2.arrayMots); 
         System.out.println();
         
-        Sac monSac = new Sac( maPhrase,-1 );
-        Sac monSac2 = new Sac( maPhrase2,-1);
-        
-        System.out.println(monSac.toString());
-        System.out.println(monSac2.toString());
-        System.out.println();
+        Sac monSac = new Sac( p1,-1 );
+        Sac monSac2 = new Sac( p2,-1);
         
         
         List<Bigramme> intersection = monSac.intersection(monSac2);
