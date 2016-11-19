@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author info
+ * @author Elias Touil 
  */
 public class Sac  {
     
@@ -53,7 +53,7 @@ public class Sac  {
      * @param s2 le sac auquel on compare
      * @return 
      */
-    public boolean estEgal(Sac s2){
+    public boolean estIdentique(Sac s2){
         
         boolean v = true ;
         
@@ -84,6 +84,7 @@ public class Sac  {
             
             if ( s2.contains(b1) ){
                 intersection.add(b1);
+                s2.ensemble.remove(b1);
             }
             
         }
@@ -91,6 +92,13 @@ public class Sac  {
         return intersection;
     }
     
+    protected boolean supprimerPremiereOccurenceDe(Bigramme bigASupprimer) {
+        boolean supprime = false ;
+        
+        
+        
+        return supprime;
+    }
     
     protected boolean contains(Bigramme bigRecherche){
         boolean v = false;
