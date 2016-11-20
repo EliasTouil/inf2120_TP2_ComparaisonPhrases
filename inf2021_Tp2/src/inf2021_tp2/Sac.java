@@ -48,31 +48,26 @@ public class Sac  {
         
     }
     
-    /**
-     * Retourne vrai si ce sac est identique au sac comparé.
-     * @param s2 le sac auquel on compare
-     * @return 
-     */
-    public boolean estIdentique(Sac s2){
-        
-        boolean v = true ;
-        
-        for (int i=0 ; i<this.ensemble.size() ; i++){
-            v &= this.ensemble.get(i).estEgal(s2.ensemble.get(i));
-        }
-        
-         return v;
-    }
     
     public double similarite(Sac s2){
         
-        double tailleIntersection = intersection(s2).size();
-        double tailleSac1 = this.ensemble.size();
-        double tailleSac2 = s2.ensemble.size();
+        double cardinaliteIntersection = intersection(s2).size();
+        double cardinaliteSac1 = this.ensemble.size();
+        double cardinaliteSac2 = s2.ensemble.size();
         
-        double u = tailleIntersection / tailleSac1 ;
-        double v = tailleIntersection / tailleSac2 ;
-        double indiceSimilarite = ( 2 * u * v )  /  ( u + v );
+        double u = cardinaliteIntersection / cardinaliteSac1 ;
+        double v = cardinaliteIntersection / cardinaliteSac2 ;
+        double indiceSimilarite = 0;
+        
+         if ( cardinaliteIntersection == 0 ) {
+            
+            indiceSimilarite = 0 ;
+          
+        } else {
+        
+            indiceSimilarite =  ( 2 * u * v )  /  ( u + v ) ;
+        
+        }
         
         return indiceSimilarite ;
     }
@@ -83,8 +78,10 @@ public class Sac  {
         for (Bigramme b1 : this.ensemble) {
             
             if ( s2.contains(b1) ){
+                
                 intersection.add(b1);
                 s2.ensemble.remove(b1);
+                
             }
             
         }
@@ -92,31 +89,16 @@ public class Sac  {
         return intersection;
     }
     
-    protected boolean supprimerPremiereOccurenceDe(Bigramme bigASupprimer) {
-        boolean supprime = false ;
-        
-        
-        
-        return supprime;
-    }
-    
     protected boolean contains(Bigramme bigRecherche){
         boolean v = false;
         
         for (Bigramme bigCourant : this.ensemble ) {
+            
             v |= bigCourant.estEgal(bigRecherche);
+            
         }
         
         return v;
     }
     
-    public String toString(){
-        String ensembleAsString = "" ;
-        
-        for (Bigramme big : ensemble){
-            ensembleAsString +=   "|   " + big.base + "  ...  " + big.complement + "   |" ;
-        }
-        
-        return ensembleAsString;
-    }
 }
