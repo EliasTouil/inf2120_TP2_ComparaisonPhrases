@@ -8,7 +8,7 @@ import java.util.List;
  * Représente une phrase. Une phrase est un ensemble de mots. Un mot est une suite de lettres. 
  * @author Elias Touil
  */
-public class Phrase {
+public class Phrase extends ArrayList {
     
     protected final String REGEX_LETTRES = "([a-zA-Z])";
     
