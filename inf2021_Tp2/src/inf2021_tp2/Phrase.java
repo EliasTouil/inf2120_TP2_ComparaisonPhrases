@@ -1,9 +1,11 @@
 package inf2021_tp2;
 
+import exceptions.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Représente une phrase. Une phrase est un ensemble de mots. Un mot est une suite de lettres. 
  * @author Elias Touil
  */
 public class Phrase {
@@ -15,6 +17,7 @@ public class Phrase {
     Phrase(String entree){
         
        trouverMots(entree);
+       validerPhrase();
        
     }
     
@@ -28,7 +31,6 @@ public class Phrase {
         for ( int i = 0 ; i < entree.length() ; i++ ) {
         
             String lettre = entree.substring(i , i+1 ) ;
-            System.out.println(lettre);
             
             if ( !lettre.matches(REGEX_LETTRES) ) {
                 
@@ -47,6 +49,15 @@ public class Phrase {
                 
             } 
             
+        }
+    }
+    
+    /**
+     * Valide la phrase. Une phrase valide doit contenir au moins 2 mots.
+     */
+    protected void validerPhrase(){
+        if (arrayMots.size() < 2) {
+            throw new PhraseInvalideException();
         }
     }
     
