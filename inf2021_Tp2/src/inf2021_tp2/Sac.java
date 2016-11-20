@@ -1,18 +1,20 @@
 package inf2021_tp2;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
- *
+ *Représente une liste de bigrammes.
  * @author Elias Touil 
  */
-public class Sac  {
-    
-    List<Bigramme> ensemble = new ArrayList<>();
+public class Sac <T extends Bigramme>  extends ArrayList{
     
     public Sac(Phrase entree , int distance ) {
+        
+        super();
         trouverBigrammes( entree , distance );
+        
     }
     
     /**
@@ -26,20 +28,20 @@ public class Sac  {
         int itComplement;
         Bigramme bigrammeCourant;
         
-        if (distance == -1 || distance > entree.arrayMots.size()) {
-             distance = entree.arrayMots.size();
+        if (distance == -1 || distance > entree.size()) {
+             distance = entree.size();
          }
         
-        for (itBase = 0 ; itBase < entree.arrayMots.size() ; itBase++){
+        for (itBase = 0 ; itBase < entree.size() ; itBase++){
             
             for (itComplement = 1 ; itComplement <= distance ; itComplement++) {
                 
-                if ((itComplement+itBase) < entree.arrayMots.size()) {
+                if ((itComplement+itBase) < entree.size()) {
                     
-                    bigrammeCourant = new Bigramme(entree.arrayMots.get(itBase) , 
-                                                                                            entree.arrayMots.get( itBase + itComplement ));
+                    bigrammeCourant = new Bigramme((String) entree.get(itBase), 
+                                                                                                (String) entree.get( itBase + itComplement ));
                     
-                    ensemble.add(bigrammeCourant);
+                    this.add(bigrammeCourant);
                     
                 } 
             }
@@ -49,11 +51,17 @@ public class Sac  {
     }
     
     
+    
+    /**
+     * Calcule l'indice de similarité entre deux sacs.
+     * @param s2 le sac comparé
+     * @return 
+     */
     public double similarite(Sac s2){
         
         double cardinaliteIntersection = intersection(s2).size();
-        double cardinaliteSac1 = this.ensemble.size();
-        double cardinaliteSac2 = s2.ensemble.size();
+        double cardinaliteSac1 = this.size();
+        double cardinaliteSac2 = s2.size();
         
         double u = cardinaliteIntersection / cardinaliteSac1 ;
         double v = cardinaliteIntersection / cardinaliteSac2 ;
@@ -72,30 +80,50 @@ public class Sac  {
         return indiceSimilarite ;
     }
     
-    protected List<Bigramme> intersection(Sac s2) {
-        List<Bigramme> intersection = new ArrayList<>();
+    
+    
+    
+    /**
+     * Retourne l'intersection du sac avec un autre sac. 
+     * @param s2 le sac avec lequel intersecter.
+     * @return 
+     */
+    protected List<T> intersection(Sac s2) {
+        List<T> intersection = new ArrayList<>();
+        Iterator it = this.iterator();
         
-        for (Bigramme b1 : this.ensemble) {
+        while (it.hasNext()){
+        
+            T bigCourant = (T) it.next();
             
-            if ( s2.contains(b1) ){
+             if ( s2.contains(bigCourant) ){
                 
-                intersection.add(b1);
-                s2.ensemble.remove(b1);
+                intersection.add(bigCourant);
+                s2.remove(bigCourant);
                 
             }
-            
         }
         
         return intersection;
     }
     
-    protected boolean contains(Bigramme bigRecherche){
+    
+    
+    
+    /**
+     * Vérifie que le bigramme passé en paramètre soit présent dans le sac. 
+     * @param bigRecherche 
+     * @return 
+     */
+    protected boolean contains(T bigRecherche){
         boolean v = false;
+        Iterator it = this.iterator();
         
-        for (Bigramme bigCourant : this.ensemble ) {
-            
-            v |= bigCourant.estEgal(bigRecherche);
-            
+        while (it.hasNext()){
+        
+            Bigramme bigCourant = (T) it.next();
+             v |= bigCourant.estEgal(bigRecherche);
+             
         }
         
         return v;
