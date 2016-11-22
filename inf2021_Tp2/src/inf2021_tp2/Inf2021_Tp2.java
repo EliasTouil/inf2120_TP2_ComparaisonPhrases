@@ -4,7 +4,7 @@ import java.util.List;
 /**
  *Ce programme compare deux phrases en calculant la métrique de similarité. 
  * Cette classe structure l'ordre des méthodes dans le programme.
- * @author Elias Touil
+ * @author Elias Touil TOUE06049208 
  */
 public class Inf2021_Tp2 {
 
