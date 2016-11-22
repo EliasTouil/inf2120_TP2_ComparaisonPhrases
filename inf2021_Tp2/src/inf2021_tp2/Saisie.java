@@ -7,30 +7,23 @@ import java.io.InputStreamReader;
 import static java.lang.Integer.parseInt;
 
 /**
- * Représente une entree contenant 2 phrases et une distance maximale. 
+ * Permet de saisir au clavier une entree et deux phrase.  
  * @author Elias Touil
  */
 public class Saisie {
- 
-    public String phraseSaisie1;
-    public String phraseSaisie2;
-    public String distanceSaisie;
-    public Phrase p1;
-    public Phrase p2; 
-    public int distance; 
+    
+    protected Phrase phrase1;
+    protected Phrase phrase2; 
+    protected int distance; 
     
     private static InputStreamReader isr = new InputStreamReader( System.in );
     private static BufferedReader br = new BufferedReader( isr );
     
     public Saisie(){
         
-        phraseSaisie1 = saisirPhrase();
-        phraseSaisie2 = saisirPhrase();
+        phrase1 = new Phrase( saisirPhrase() );
+        phrase2 = new Phrase( saisirPhrase() );
         distance = saisirDistance();
-        
-        p1 = new Phrase(phraseSaisie1);
-        p2 = new Phrase(phraseSaisie2);
-        
         
     }
     
@@ -59,12 +52,12 @@ public class Saisie {
      * @return 
      */
     protected int saisirDistance() {
-        String distanceSaisie = saisirPhrase();
-        int distance = 0;
+        String distanceTemp = saisirPhrase();
+        distance = 0;
         
         try {
             
-            distance = parseInt(distanceSaisie);
+            distance = parseInt(distanceTemp);
         
         } catch (Exception e) {
             

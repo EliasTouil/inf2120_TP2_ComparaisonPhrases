@@ -5,41 +5,43 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- *Représente une liste de bigrammes.
+ *Représente un ensemble de Bigramme
  * @author Elias Touil 
+ * @param <T> Bigramme { Base , Complement }
  */
 public class Sac <T extends Bigramme>  extends ArrayList{
     
-    public Sac(Phrase entree , int distance ) {
+    public Sac(Phrase phrase , int distance ) {
         
         super();
-        trouverBigrammes( entree , distance );
+        trouverBigrammes(phrase , distance );
         
     }
     
     /**
-     * Trouve les bigrammes d'une Phrase selon la distance.
+     * Trouve les bigrammes d'une Phrase selon la distance. 
      * @param entree la Phrase.
      * @param distance  la distance max entre les mots d'un bigramme.
      */
     private void trouverBigrammes(Phrase entree , int distance){
         
-        int itBase;
-        int itComplement;
+        int iterateurBase;
+        int iterateurComplement;
         Bigramme bigrammeCourant;
+        
         
         if (distance == -1 || distance > entree.size()) {
              distance = entree.size();
          }
         
-        for (itBase = 0 ; itBase < entree.size() ; itBase++){
+        for (iterateurBase = 0 ; iterateurBase < entree.size() ; iterateurBase++){
             
-            for (itComplement = 1 ; itComplement <= distance ; itComplement++) {
+            for (iterateurComplement = 1 ; iterateurComplement <= distance ; iterateurComplement++) {
                 
-                if ((itComplement+itBase) < entree.size()) {
+                if ((iterateurComplement+iterateurBase) < entree.size()) {
                     
-                    bigrammeCourant = new Bigramme((String) entree.get(itBase), 
-                                                                                                (String) entree.get( itBase + itComplement ));
+                    bigrammeCourant = new Bigramme((String) entree.get(iterateurBase), 
+                                                                                                (String) entree.get(iterateurBase + iterateurComplement ));
                     
                     this.add(bigrammeCourant);
                     
@@ -55,7 +57,7 @@ public class Sac <T extends Bigramme>  extends ArrayList{
     /**
      * Calcule l'indice de similarité entre deux sacs.
      * @param s2 le sac comparé
-     * @return 
+     * @return un indice de similarité 
      */
     public double similarite(Sac s2){
         
@@ -65,7 +67,7 @@ public class Sac <T extends Bigramme>  extends ArrayList{
         
         double u = cardinaliteIntersection / cardinaliteSac1 ;
         double v = cardinaliteIntersection / cardinaliteSac2 ;
-        double indiceSimilarite = 0;
+        double indiceSimilarite ;
         
          if ( cardinaliteIntersection == 0 ) {
             
@@ -86,7 +88,7 @@ public class Sac <T extends Bigramme>  extends ArrayList{
     /**
      * Retourne l'intersection du sac avec un autre sac. 
      * @param s2 le sac avec lequel intersecter.
-     * @return 
+     * @return une liste de Bigramme. 
      */
     protected List<T> intersection(Sac s2) {
         List<T> intersection = new ArrayList<>();
@@ -112,8 +114,8 @@ public class Sac <T extends Bigramme>  extends ArrayList{
     
     /**
      * Vérifie que le bigramme passé en paramètre soit présent dans le sac. 
-     * @param bigRecherche 
-     * @return 
+     * @param bigRecherche le bigramme recherché 
+     * @return vrai si le sac contient le bigramme recherché.
      */
     protected boolean contains(T bigRecherche){
         boolean v = false;
